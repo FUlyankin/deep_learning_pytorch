@@ -7,7 +7,7 @@
 ## Задание
 
 - После этого семинара вам будет выдано [первое домашнее задание.](https://github.com/FUlyankin/deep_learning_pytorch/blob/main/homework/hw1_basic_pytorch.ipynb)
-- К следующему семинару вам нужно попробовать прорешать [первый](https://github.com/FUlyankin/deep_learning_pytorch/raw/main/week01_intro/neural_nets_tasks_part_1.pdf) и [второй](https://github.com/FUlyankin/deep_learning_pytorch/raw/main/week01_intro/neural_nets_tasks_part_2.pdf) листочки. Мы будем разбирать не семинаре задачи, которые вы не поняли. На третьей паре будет первая проверочная работа, состоящая из похожих задачек. 
+- К следующему семинару вам нужно попробовать прорешать [первый и четвёртый](https://fulyankin.github.io/deep_learning_masha_book/intro.html) листочки. Мы будем разбирать не семинаре задачи, которые вы не поняли. На третьей паре будет первая проверочная работа, состоящая из похожих задачек. 
 
 
 ## Что можно почитать и посмотреть
