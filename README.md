@@ -13,6 +13,7 @@
 
 - 📦 [Таблица с оценками](https://docs.google.com/spreadsheets/d/1r5koThyau5cxgp6MZAIFIwh0zdttyKe5B-nkpLatzmo/edit?usp=sharing)
 - 📦 [Видео записи семинаров и лекций](https://youtube.com/playlist?list=PLNKXA-74YGLhB1xyYPK78L_M5DeMCPOY4)
+- 📦 [Список проектов для получения бонусных баллов](https://github.com/FUlyankin/deep_learning_pytorch/blob/main/projects.md)
 - 📦 Все важные объявления будут дублироваться в чате курса. Там же можно задать свои вопросы. Жми кнопку ниже и попадёшь в чат.
 
 [![TG2](https://img.shields.io/badge/Telegram-DL--announcement-blue)](https://t.me/+BvoZ8PGnkmw5Mjcy)
