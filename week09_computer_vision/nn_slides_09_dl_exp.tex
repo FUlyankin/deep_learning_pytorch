@@ -1,0 +1,319 @@
+%!TEX TS-program = xelatex
+\documentclass[notes,12pt, aspectratio=169]{beamer}
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % пакеты для математики
+\usepackage{minted}
+
+\usepackage[english, russian]{babel} % выбор языка для документа
+\usepackage[utf8]{inputenc} % задание utf8 кодировки исходного tex файла
+\usepackage[X2,T2A]{fontenc}        % кодировка
+
+\usepackage{fontspec}         % пакет для подгрузки шрифтов
+\setmainfont{Helvetica}  % задаёт основной шрифт документа
+
+% why do we need \newfontfamily:
+% http://tex.stackexchange.com/questions/91507/
+\newfontfamily{\cyrillicfonttt}{Helvetica}
+\newfontfamily{\cyrillicfont}{Helvetica}
+\newfontfamily{\cyrillicfontsf}{Helvetica}
+
+\usepackage{unicode-math}     % пакет для установки математического шрифта
+% \setmathfont{Neo Euler} % шрифт для математики
+
+\usepackage{polyglossia}      % Пакет, который позволяет подгружать русские буквы
+\setdefaultlanguage{russian}  % Основной язык документа
+\setotherlanguage{english}    % Второстепенный язык документа
+
+% Шрифт для кода
+\setmonofont[Scale=0.85]{Monaco}
+\usepackage{verbments}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+%\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\usepackage{array}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+% для имитации питоновского синтаксиса 
+\newcommand{\pgr}[1]{{\color{green} \textbf{#1}}}
+
+
+%%%%%%%%%% Работа с картинками %%%%%%%%%
+\usepackage{graphicx}                  % Для вставки рисунков
+\usepackage{graphics}
+\graphicspath{{images/},{imagess/}}    % можно указать папки с картинками
+\usepackage{wrapfig}                   % Обтекание рисунков и таблиц текстом
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,128, 0}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+% списки, которые растягиваются на всю величину слайда 
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+
+
+
+\title[]{\textcolor{blue}{Глубокое обучение и вообще}}
+\author{Ульянкин Филипп}
+\date{ }
+
+
+\begin{document}
+
+%%% TIKZ STUFF
+\tikzset{   
+        every picture/.style={remember picture,baseline},
+        every node/.style={anchor=base,align=center,outer sep=1.5pt},
+        every path/.style={thick},
+        }
+\newcommand\marktopleft[1]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+
+\begin{frame}
+\maketitle
+\centering \textbf{\color{blue} Посиделка 9:}  Организация DL-экспериментов
+\end{frame}
+
+
+\begin{frame}{Проблемы при обучении нейросетей}
+	\begin{wideitemize}
+		\item  «Neural net training is a leaky abstraction» — Andrej Karpathy
+		\item  Знания архитектур, оптимизаторов порой недостаточно для получения хорошей модели
+		\item Универсально наилучшего решения не бывает
+		\item Важна точка начала экспериментов и инкрементальные улучшения
+	\end{wideitemize}
+	\vspace{1.3cm}
+	\vfill
+	\footnotesize
+	Andrej Karpathy: {\color{blue} \url{http://karpathy.github.io/2019/04/25/recipe/} } \newline Максим Рябинин: {\color{blue}\url{https://github.com/aosokin/dl_cshse_ami/blob/master/2021-fall/lectures/DL21-fall-lecture5-bestpractices.pdf} }
+\end{frame}
+
+
+\begin{frame}{Перед началом}
+	\begin{wideitemize}
+		\item  Используйте проверенные временем стандарты
+		\item  Вместо своих моделей — архитектуры из популярных публикаций  (ResNet в зрении, ELMo/Transformer в текстах) и репозиториев [1,2,3]
+		\item Adam со стандартным LR без расписания обойти нелегко
+		\item Сложные функции потерь/аугментации лучше отложить
+		\item Первые запуски на небольших датасетах, подвыборке или синтетике
+	\end{wideitemize}
+
+\vfill
+\footnotesize
+{\color{blue} [1] \url{https://github.com/pytorch/vision}  \newline
+[2] \url{https://github.com/huggingface/transformers/}   \newline
+[3] \url{https://github.com/pytorch/fairseq}} 
+
+\end{frame}
+
+
+\begin{frame}{Как искать ошибки}
+	\begin{wideitemize}	
+		\item Чтобы легче находить ошибки, снизьте число факторов влияния 
+		
+		\item  Баги могут быть как в определении и обучении модели, так и в проверке качества (даже в загрузке данных)
+		
+		\item В меньшем масштабе можно быстрее итерироваться и находить проблемы
+		
+		\item \alert{Пробуйте прогнать код на одном батче и оценить, насколько адекватные результаты вы получили:} есть ли сходимость, есть ли переобучение на валидации, адекватно ли меняются метрики 
+		
+		\item Визуализируйте всё, что можете: метрики, примеры работы модели
+		
+		\item DL-код — всё ещё код: полезно писать unit-тесты
+	\end{wideitemize}
+\end{frame}
+
+
+
+\begin{frame}{Типичные ошибки: модели}
+	\begin{wideitemize}
+		\item Использование ad-hoc архитектур, когда не надо
+		\item Использование нестабильных/сложных функций потерь вместо кросс-энтропии в классификации 
+		\item Использование устаревших функций активации в глубоких сетях (сигмоида, тангенс)
+		\item Плохая инициализация: нули/константы вместо Glorot/He
+	\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Типичные ошибки: данные}
+	\begin{wideitemize}
+		\item Отсутствие аугментации/использование некорректной аугментации, разные аугментации при обучении и валидации  (исключение — random crop)
+		\item Если используете предобученные модели, препроцессинг данных должен быть максимально похожим 
+		\item Считывать все данные сразу, используйте Dataset/DataLoader
+	\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Типичные ошибки: обучение}
+	\begin{wideitemize}
+		\item Не забывайте делать zero\_grad :)
+		\item Переключайте model.train()/model.eval() в нужных фазах обучения  
+		\item Делайте чекпойнты, при них сохраняйте также параметры оптимизатора optim.state\_dict() и расписания
+		\item Функция потерь должна быть максимально близка к метрике, которую вы оптимизируете 
+	\end{wideitemize}
+\end{frame}
+
+
+% Посмотреть готовые инструменты для логов: 
+%  https://www.wandb.com/
+% [2] https://www.comet.ml/
+% [3] https://neptune.ai/ 
+\begin{frame}{Организация экспериментов}
+	\begin{wideitemize}
+		\item \alert{Тестируйте за один раз только одно изменение,} чтобы понимать влияние каждого фактора по отдельности 
+		\item На ранних стадиях не обязательно учить до сходимости и использовать всю выборку целиком
+		\item  Ведите лог всех экспериментов
+		\item Примеры инструментов для лога экспериентов:  \newline 
+		{\color{blue} 
+		\url{https://www.wandb.com/}  \newline 
+		\url{https://www.comet.ml/}  \newline 
+		\url{https://neptune.ai/}  \newline 
+		\url{https://dvc.org/}  \newline 
+		\url{https://mlflow.org/}  \newline }
+	\end{wideitemize}	
+\end{frame}
+
+
+\begin{frame}{Как улучшать качество?}
+	\begin{wideitemize}
+		\item Функция потерь должна быть максимально близка к метрике
+		
+		\item  Начните с небольших экспериментов и масштабируйтесь, когда всё отлажено 
+		
+		\item  \alert{Работа с данными (количество, качество, предобработка) зачастую приносит гораздо больше эффекта, чем перебор архитектур и оптимизаторов}
+		
+		\item  Архитектуры влияют существенно, но учитывайте свои ресурсы
+		
+		\item Занимайтесь оптимизацией гиперпараметров в самую последнюю очередь 
+		
+		\item Размер батча важен (ряд моделей иначе просто не учится) 
+	\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Выводы}
+	\begin{wideitemize}
+		\item  Пользуйтесь проверенными техниками и опытом других людей
+		
+		\item  Начните с небольших экспериментов
+		
+		\item  Когда всё протестировано, можно масштабироваться
+		
+		\item  Отслеживайте все доступные метрики
+		
+		\item  Тестируйте одно изменение за раз
+		
+		\item  Сохраняйте код/конфигурацию всех экспериментов и их результаты
+		
+	\end{wideitemize}
+\end{frame}
+
+
+\end{document}
+
