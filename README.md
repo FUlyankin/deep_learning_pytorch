@@ -119,7 +119,7 @@ __Правила сдачи заданий:__
 
 ## Лицензия
 
-Весь контент, созданный для этого курса распространяются на правах лицензии [MIT License](https://github.com/hse-econ-data-science/dap_2020_fall/blob/master/LICENSE) Материалы публикуются как общественное достояние.
+Весь контент, созданный для этого курса распространяются на правах лицензии [MIT License](https://github.com/hse-econ-data-science/dap_2020_fall/blob/master/LICENSE) либо на правах лицензии [WTFPL](http://www.wtfpl.net/) на ваш выбор. Материалы публикуются как общественное достояние.
 
 <img align="center" src="http://www.roundcrisis.com/presentations/ndc-oslo/images/legos.jpg" height="250" width="500">
 <br>
